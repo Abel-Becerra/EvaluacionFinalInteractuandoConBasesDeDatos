@@ -5,6 +5,11 @@ class EventManager {
         this.obtenerDataInicial()
         this.inicializarFormulario()
         this.guardarEvento()
+        Date.prototype.addDays = function(days) {
+          var date = new Date(this.valueOf());
+          date.setDate(date.getDate() + days);
+          return date;
+        }
     }
 
     obtenerDataInicial() {
@@ -133,12 +138,20 @@ class EventManager {
         }
 
     actualizarEvento(evento,dias){
+      var s = new Date(evento.start._d)
+      s.addDays(dias)
+      var e = ''
+      if (evento.end != null){
+        e = new Date(evento.end._d)
+        e.addDays(dias)
+      }
       var json={
         id:evento.id,
-        start:evento.start._d
+        start:s,
+        end:e
       }
-      console.log(evento)
       console.log(json)
+      console.log(e)
     }
     }
 
