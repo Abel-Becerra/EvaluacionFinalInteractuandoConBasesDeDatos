@@ -6,9 +6,9 @@ module.exports.insertarEventos = function(callback){
     title:"Meeting at Room Tough Guy",
     user:"mdelacruz@northware.mx",
     startDate:"2018-12-05",
-    startTime: '10:00 AM',
+    startTime: '10:00:00',
     endDate:"2018-12-05",
-    endTime: '16:00 PM',
+    endTime: '18:00:00',
     isFullDay:true
   })
   u.save((error)=>{
@@ -19,7 +19,10 @@ module.exports.insertarEventos = function(callback){
     title:"Meeting at Room Dynavox",
     user:"mdelacruz@northware.mx",
     startDate:"2018-12-14",
-    startTime: '01:30 PM'
+    startTime: '11:00:00',
+    endDate:"2018-12-14",
+    endTime: '11:30:00',
+    isFullDay:false
   })
   u1.save((error)=>{
     if (error) callback(error)
@@ -29,7 +32,10 @@ module.exports.insertarEventos = function(callback){
     title:"Meeting at Room Dynavox",
     user:"angela@northware.mx",
     startDate:"2018-12-14",
-    startTime: '01:30 PM'
+    startTime: '13:30:00',
+    endDate:"2018-12-14",
+    endTime: '14:00:00',
+    isFullDay:false
   })
   u2.save((error)=>{
     if (error) callback(error)

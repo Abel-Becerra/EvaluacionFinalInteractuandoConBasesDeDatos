@@ -24,7 +24,6 @@ Router.post('/new', function(req, res){
         endDate:req.body.end == '' ? '' : req.body.end.split('T')[0],
         endTime:req.body.end == '' ? '' : req.body.end.split('T')[1]
     })
-    console.log(ev)
     ev.save(function(error) {
         if (error) {
             res.status(500)
@@ -43,17 +42,16 @@ Router.post('/delete/:id', function(req, res) {
         }
         res.send("Registro eliminado")
     })
-})
+});
 
 Router.post('/update', function(req, res) {
-    let uid = req.params.id
-    model.save({id: uid}, function(error) {
+    model.findOneAndUpdate({id: req.body.id}, req.body, function(error) {
         if(error) {
             res.status(500)
             res.json(error)
         }
-        res.send("Registro eliminado")
+        res.send("Registro actualizado")
     })
-})
+});
 
 module.exports = Router

@@ -44,17 +44,17 @@ class EventManager {
             let nombre = $('#titulo').val(),
             start = $('#start_date').val(),
             title = $('#titulo').val(),
-            end = '',
-            start_hour = '',
-            end_hour = '';
+            end = $('#start_date').val(),
+            start_hour = '08:00:00',
+            end_hour = '18:00:00';
 
             if (!$('#allDay').is(':checked')) {
                 end = $('#end_date').val()
                 start_hour = $('#start_hour').val()
                 end_hour = $('#end_hour').val()
-                start = start + 'T' + start_hour
-                end = end + 'T' + end_hour
             }
+            start = start + 'T' + start_hour
+            end = end + 'T' + end_hour
             let url = this.urlBase + "/new"
             if (title != "" && start != "") {
                 let ev = {
@@ -145,14 +145,21 @@ class EventManager {
         e = new Date(evento.end._d)
         e.addDays(dias)
       }
-      var json={
-        id:evento.id,
-        start:s,
-        end:e
+      let pad = "00", url = this.urlBase + "/update"
+      let  json={
+        id: evento.id,
+        title: evento.title,
+        user:location.href.split('?')[1].split('=')[1],
+        isFullDay:evento.allDay,
+        startDate:s.getFullYear() + '-' + (pad.substring(0, pad.length - (s.getMonth() + 1).toString().length) + (s.getMonth() + 1)) + '-' + (pad.substring(0, pad.length - s.getDate().toString().length) + s.getDate()),
+        startTime:evento.start._i.split(' ')[1],
+        endDate:e.getFullYear() + '-' + (pad.substring(0, pad.length - (e.getMonth() + 1).toString().length) + (e.getMonth() + 1)) + '-' + (pad.substring(0, pad.length - e.getDate().toString().length) + e.getDate()),
+        endTime:evento.end._i.split(' ')[1]
       }
-      console.log(json)
-      console.log(e)
+      $.post(url, json, (response) => {
+          alert(response)
+      })
     }
-    }
+}
 
-    const Manager = new EventManager()
+const Manager = new EventManager()
